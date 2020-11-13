@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: efk-ingress
+  namespace: kube-logging
+  annotations:
+## Untuk menaikan batas upload file
+    nginx.org/client-max-body-size: "10m"
+## Memaksa jalan di https
+# nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+spec:
+  rules:
+  - host: efk.komarudins.online
+## Service Location n Characters
+    http:
+      paths:
+        - path: /
+          backend:
+            serviceName: kibana
+            servicePort: 5601
